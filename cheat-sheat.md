@@ -1,5 +1,7 @@
-**Dockerfile:** "defines the contents of an image". Forráskód, az image definíciója.
-**Image:** A container definíciója. - env variables, jar file, jdk, tomcat, etc. a dockerfile buildelésének eredménye.
+# Notes:
+
+**Dockerfile:** "defines the contents of an image". Forráskód, az image definíciója.  
+**Image:** A container definíciója. - env variables, jar file, jdk, tomcat, etc. a dockerfile buildelésének eredménye.  
 **Docker Container:** Környezet, hasonló mint egy virtual machine. De containeren nincs op rendszer. A container a gépnek az os kernelén fut. A container egy process. Az image egy példánya, az imaget futtatod, és lesz belőle egy container.
 
 
@@ -24,8 +26,9 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
 	-p 8080:8080 melyik portot hova irányítod, bal oldali külső, jobb a belső a dockeren belüli
 
 
-#best practices:
+## Best practices:
  - Általában mindig használj ha tudsz verzió számot a dockerfilehoz
+ - Dockerfile-ban maintainer LABEL legyen, többit nem igazán használják
  
 # CMD futtatásra bevett parancsok:
 ```
@@ -52,9 +55,9 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
 
 
 **kis egyéb:**
-8080 -> port amin a Tomcat fut defaulton
-80   ->  HTTP alapértelmezett portja, ezért ha a szerver ezen fut, nem kell portszámot írni az URL-be (pl. localhost:80 == localhost)
-/ROOT.war --> ilyenkor nem kell domain név csak az ip address
-java -jar test-program.jar --> jar futtatás 
-ubuntu package keresés: apt-cache search jdk
+8080 -> port amin a Tomcat fut defaulton  
+80   ->  HTTP alapértelmezett portja, ezért ha a szerver ezen fut, nem kell portszámot írni az URL-be (pl. localhost:80 == localhost)  
+/ROOT.war --> ilyenkor nem kell domain név csak az ip address  
+java -jar test-program.jar --> jar futtatás   
+ubuntu package keresés: apt-cache search jdk  
 
