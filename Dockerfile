@@ -14,4 +14,4 @@ COPY test-program.jar /usr/local/bin/
 #COPY többet használtabb mint ADD (hasonló működés)
 
 ENTRYPOINT ["java", "-jar", "test-program.jar"]
-#ENTRYPOINT/CMD 
+#ENTRYPOINT/CMD

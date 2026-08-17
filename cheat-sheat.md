@@ -58,4 +58,3 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
 java -jar test-program.jar --> jar futtatás 
 ubuntu package keresés: apt-cache search jdk
 
-
