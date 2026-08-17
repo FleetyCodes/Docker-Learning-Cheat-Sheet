@@ -54,10 +54,10 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
 ```	
 
 
-**kis egyéb:**
-8080 -> port amin a Tomcat fut defaulton  
-80   ->  HTTP alapértelmezett portja, ezért ha a szerver ezen fut, nem kell portszámot írni az URL-be (pl. localhost:80 == localhost)  
-/ROOT.war --> ilyenkor nem kell domain név csak az ip address  
-java -jar test-program.jar --> jar futtatás   
-ubuntu package keresés: apt-cache search jdk  
+**kis egyéb:**  
+- 8080 -> port amin a Tomcat fut defaulton  
+- 80   ->  HTTP alapértelmezett portja, ezért ha a szerver ezen fut, nem kell portszámot írni az URL-be (pl. localhost:80 == localhost)  
+- /ROOT.war --> ilyenkor nem kell domain név csak az ip address  
+- java -jar test-program.jar --> jar futtatás   
+- ubuntu package keresés: apt-cache search jdk  
 
