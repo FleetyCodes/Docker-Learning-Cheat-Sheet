@@ -15,8 +15,8 @@ olyan mint egy maven repo, itt vannak a docker imagek amik publicok és private-
 
 
 **image készítés:**
-- lehet egy ubuntut indítani, belépni, felkonfolni és azt az állapotoot lementeni (kevésbé használt megoldás)
-	docker container commit -a <"username"> <image name> <container id>  --> image létrehozás létező fellkonfolt containerből. nem szokás.
+- lehet egy ubuntut indítani, belépni, felkonfolni és azt az állapotot lementeni (kevésbé használt megoldás)
+	docker container commit -a <"username"> <image name> <container id>  --> image létrehozás létező felkonfolt containerből. nem szokás.
 - a normális út a dockerfile készítéssel készül
 	docker image build -t jdk-image-from-dockerfile . --> image buildelés dockerfileból. -t és a mögötte levő szöveg a név paraméter. a pont azt jelzi hogy ebből a mappából szed ki mindent. mindig a "Dockerfile" elnevezésúből fog buildelni.
 
