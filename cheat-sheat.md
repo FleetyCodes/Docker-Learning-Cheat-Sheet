@@ -1,24 +1,24 @@
-**Dockerfile: ** "defines the contents of an image". Forráskód, az image definíciója.
-**Image: ** A container definíciója. - env variables, jar file, jdk, tomcat, etc. a dockerfile buildelésének eredménye.
-**Docker Container: ** Környezet, hasonló mint egy virtual machine. De containeren nincs op rendszer. A container a gépnek az os kernelén fut. A container egy process. Az image egy példánya, az imaget futtatod, és lesz belőle egy container.
+**Dockerfile:** "defines the contents of an image". Forráskód, az image definíciója.
+**Image:** A container definíciója. - env variables, jar file, jdk, tomcat, etc. a dockerfile buildelésének eredménye.
+**Docker Container:** Környezet, hasonló mint egy virtual machine. De containeren nincs op rendszer. A container a gépnek az os kernelén fut. A container egy process. Az image egy példánya, az imaget futtatod, és lesz belőle egy container.
 
 
-**docker hub: **
+**docker hub:**
 hub.docker.com
 olyan mint egy maven repo, itt vannak a docker imagek amik publicok és private-ok.
 (ilyet lehet hostolni is, inkább githubhoz hasonlit)
 
-**dockerfile commands documentation: **
+**dockerfile commands documentation:**
 	https://docs.docker.com/reference/dockerfile			
 
 
-**image készítés: **
+**image készítés:**
 - lehet egy ubuntut indítani, belépni, felkonfolni és azt az állapotoot lementeni (kevésbé használt megoldás)
 	docker container commit -a <"username"> <image name> <container id>  --> image létrehozás létező fellkonfolt containerből. nem szokás.
 - a normális út a dockerfile készítéssel készül
 	docker image build -t jdk-image-from-dockerfile . --> image buildelés dockerfileból. -t és a mögötte levő szöveg a név paraméter. a pont azt jelzi hogy ebből a mappából szed ki mindent. mindig a "Dockerfile" elnevezésúből fog buildelni.
 
-**container futtatás/docker container run **
+**container futtatás/docker container run**
 futtatáskor meg kell mondani mely portok legyenek publikusak
 -p --> publish 
 	-p 8080:8080 melyik portot hova irányítod, bal oldali külső, jobb a belső a dockeren belüli
