@@ -2,7 +2,8 @@
 
 **Dockerfile:** "defines the contents of an image". Forráskód, az image definíciója.  
 **Image:** A container definíciója. - env variables, jar file, jdk, tomcat, etc. a dockerfile buildelésének eredménye.  
-**Docker Container:** Környezet, hasonló mint egy virtual machine. De containeren nincs op rendszer. A container a gépnek az os kernelén fut. A container egy process. Az image egy példánya, az imaget futtatod, és lesz belőle egy container.
+**Docker Container:** Környezet, hasonló mint egy virtual machine. De containeren nincs op rendszer. A container a gépnek az os kernelén fut. A container egy process - 'a service  in its own right'. 
+Az image egy példánya, az imaget futtatod, és lesz belőle egy container. Egy container egy service, egy microservice.
 
 
 **docker hub:**
@@ -48,17 +49,36 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
 	docker container run -d -p 8080:8080 virtualpairprogrammers/fleetman-webapp --> háttérben futtatás a minusz d commanddal
 	docker container logs <container id> --> logok
 	docker container logs -f <container id> --> logok, folyamat frissüléssel
-	docker container exec -it <container id> bash --> be ssh-zás
-	docker container commit -a <"username"> <image name> <container id>  --> image létrehozás létező fellkonfolt containerből. nem szokás.
+	docker container exec -it <container id> bash --> be ssh-zás || docker container exec -it <container name> sh
+		docker container commit -a <"username"> <image name> <container id>  --> image létrehozás létező fellkonfolt containerből. nem szokás.
 	docker image build -t jdk-image-from-dockerfile . --> image buildelés dockerfileból. -t és a mögötte levő szöveg a név paraméter. a pont azt jelzi hogy ebből a mappából szed ki mindent. mindig a "Dockerfile" elnevezésúből fog buildelni.
+	docker image tag <id to tag> <tag to give>
+	docker login --> belépés docker hubra
+	docker image push fleetman-webapp
+	docker container run -e MYSQL_ROOT_PASSWORD=password -d mysql:5 --> -e: env var
+	
+	docker container run --network my-docker-network --name database_container -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=fleetman -d mysql:5
+	
+		--network my-docker-network --> csatlakoztatás docker networkhöz
+		----name database_container --> konténer elnevezése, spring.datasource.url-be ez fog kelleni
+	docker container run -d -p 80:8080 --network my-docker-network --name fleetmap-webapp --rm fleetmap-webapp
+		--rm --> leállás után törlődik a container	
+		
+		
 ```	
 
 ##Dockerfile commands:
+	**CMD-ből csak egy lehet ! **
 	EXPOSE 8080 --> jelzés milyen port mapping kelhet. dokumentációs jelleg.
 	RUN rm -rf ./webapps/* --> előtakarítás
 	COPY target/fleetman-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war --> másolás
 	ENV JAVA_OPTS="-Dspring.profiles.active=docker-demo" --> env var megadás
 
+##Dockerfile container networking commands:
+	docker network ls -> network list
+		- bridge -> ez a default network
+	docker network create <network name>
+	
 
 **kis egyéb:**  
 - 8080 -> port amin a Tomcat fut defaulton  
