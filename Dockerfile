@@ -1,17 +1,12 @@
-FROM ubuntu:latest
+FROM openjdk:8u131-jdk-alpine
+#Spring boot app example
 
-#this is a comment
-#commonly only the maintainer label is used
-LABEL maintainer="FleetyCodes - Laci"
-LABEL creationdate="2026-08-16"
+MAINTAINER Richard Chesterwood "contact@virtualpairprogrammers.com"
 
-RUN apt-get update && apt-get install -y openjdk-8-jdk
+EXPOSE 8080
 
 WORKDIR /usr/local/bin/
 
-#the java jar to run
-COPY test-program.jar /usr/local/bin/
-#COPY többet használtabb mint ADD (hasonló működés)
+COPY target/fleetman-0.0.1-SNAPSHOT.jar webapp.jar
 
-ENTRYPOINT ["java", "-jar", "test-program.jar"]
-#ENTRYPOINT/CMD
+CMD ["java","-Dspring.profiles.active=docker-demo","-jar","webapp.jar"]

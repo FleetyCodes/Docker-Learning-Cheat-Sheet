@@ -53,6 +53,12 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
 	docker image build -t jdk-image-from-dockerfile . --> image buildelés dockerfileból. -t és a mögötte levő szöveg a név paraméter. a pont azt jelzi hogy ebből a mappából szed ki mindent. mindig a "Dockerfile" elnevezésúből fog buildelni.
 ```	
 
+##Dockerfile commands:
+	EXPOSE 8080 --> jelzés milyen port mapping kelhet. dokumentációs jelleg.
+	RUN rm -rf ./webapps/* --> előtakarítás
+	COPY target/fleetman-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war --> másolás
+	ENV JAVA_OPTS="-Dspring.profiles.active=docker-demo" --> env var megadás
+
 
 **kis egyéb:**  
 - 8080 -> port amin a Tomcat fut defaulton  
@@ -60,4 +66,7 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
 - /ROOT.war --> ilyenkor nem kell domain név csak az ip address  
 - java -jar test-program.jar --> jar futtatás   
 - ubuntu package keresés: apt-cache search jdk  
-
+- vm argument: -Dspring.profiles.active=development
+- build: .\mvnw.cmd clean package -DskipTests
+- cd .. --> visszaugrás
+- java -D"spring.profiles.active"=development -jar .\fleetman-0.0.1-SNAPSHOT.jar --> run jar
