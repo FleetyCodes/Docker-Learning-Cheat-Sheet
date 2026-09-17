@@ -4,7 +4,8 @@
 **Image:** A container definíciója. - env variables, jar file, jdk, tomcat, etc. a dockerfile buildelésének eredménye.  
 **Docker Container:** Környezet, hasonló mint egy virtual machine. De containeren nincs op rendszer. A container a gépnek az os kernelén fut. A container egy process - 'a service  in its own right'. 
 Az image egy példánya, az imaget futtatod, és lesz belőle egy container. Egy container egy service, egy microservice.
-
+**docker network:** egy virtuális hálózat amin keresztül a containerek látják egymást és kommunikálhatnak egymással. Érdemes modulokat (FE, BE, DB) külön konténerekben futtatni, és ezáltal tudnak kommunikálni egymással.
+**docker volumes:** perzisztens adattárolás, container leállítás után is megmaradnak a definiált adatok
 
 **docker hub:**
 hub.docker.com
@@ -57,28 +58,44 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
 	docker image push fleetman-webapp
 	docker container run -e MYSQL_ROOT_PASSWORD=password -d mysql:5 --> -e: env var
 	
-	docker container run --network my-docker-network --name database_container -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=fleetman -d mysql:5
+	
+	CONTAINER NETWORKING:
+		docker network ls -> network list
+			- bridge -> ez a default network
+		docker network create <network name>
+		
+		docker container run --network my-docker-network --name database_container -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=fleetman -d mysql:5
 	
 		--network my-docker-network --> csatlakoztatás docker networkhöz
 		----name database_container --> konténer elnevezése, spring.datasource.url-be ez fog kelleni
-	docker container run -d -p 80:8080 --network my-docker-network --name fleetmap-webapp --rm fleetmap-webapp
+		docker container run -d -p 80:8080 --network my-docker-network --name fleetman-webapp --rm fleetman-webapp
 		--rm --> leállás után törlődik a container	
 		
+	DOCKER VOLUMES
+		docker container inspect <id or name of container> --> container info
+		docker volume ls -> volume lista
+		docker volume prune --> volume-ok törlése
+		
+		docker container run -v mydata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=fleetman mysql:5
+			--> -v mydata:/var/lib/mysql --> volume létrehozása, a "mydata" lesz itt a neve
+		docker volume inspect mydata --> mydata nevű volume inspectálás	
+		
+		docker container run -v /home/valamieleres/:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=fleetman mysql:5
+			--> linux 
+		docker container run -v //c/felhasználók/Laci/work/mydatabase:/var/lib/mysql -d -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=fleetman mysql:5
+			--> windows verzio
+			Ha nincs elérés akkor létrehozza. Fizikailag kiírja ide a fileokat.
 		
 ```	
 
-##Dockerfile commands:
+## Dockerfile commands:
 	**CMD-ből csak egy lehet ! **
 	EXPOSE 8080 --> jelzés milyen port mapping kelhet. dokumentációs jelleg.
 	RUN rm -rf ./webapps/* --> előtakarítás
 	COPY target/fleetman-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war --> másolás
 	ENV JAVA_OPTS="-Dspring.profiles.active=docker-demo" --> env var megadás
-
-##Dockerfile container networking commands:
-	docker network ls -> network list
-		- bridge -> ez a default network
-	docker network create <network name>
-	
+	VOLUME /var/lib/mysql --> megtartja az itt definiált adatokat ha leáll a container. ezek a host gépen lesznek tárolva.
+		
 
 **kis egyéb:**  
 - 8080 -> port amin a Tomcat fut defaulton  
@@ -90,3 +107,5 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
 - build: .\mvnw.cmd clean package -DskipTests
 - cd .. --> visszaugrás
 - java -D"spring.profiles.active"=development -jar .\fleetman-0.0.1-SNAPSHOT.jar --> run jar
+- mysql -ppassword -> belépés "password" jelszóval a db-be
+	show databases; show tables; (db commands, mindig kell a ; a végére!)
