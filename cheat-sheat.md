@@ -3,7 +3,7 @@
 **Dockerfile:** "defines the contents of an image". Forráskód, az image definíciója.  
 **Image:** A container definíciója. - env variables, jar file, jdk, tomcat, etc. a dockerfile buildelésének eredménye.  
 **Docker Container:** Környezet, hasonló mint egy virtual machine. De containeren nincs op rendszer. A container a gépnek az os kernelén fut. A container egy process - 'a service  in its own right'. 
-Az image egy példánya, az imaget futtatod, és lesz belőle egy container. Egy container egy service, egy microservice.
+Az image egy példánya, az imaget futtatod, és lesz belőle egy container. Egy container, egy service, egy microservice.
 **docker network:** egy virtuális hálózat amin keresztül a containerek látják egymást és kommunikálhatnak egymással. Érdemes modulokat (FE, BE, DB) külön konténerekben futtatni, és ezáltal tudnak kommunikálni egymással.
 **docker volumes:** perzisztens adattárolás, container leállítás után is megmaradnak a definiált adatok
 
@@ -32,6 +32,10 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
  - Általában mindig használj ha tudsz verzió számot a dockerfilehoz
  - Dockerfile-ban maintainer LABEL legyen, többit nem igazán használják
  
+## Maven plugin:
+ - https://dmp.fabric8.io/ (io.fabric8) --> Ez a plugin integrálja a dockert. "mvn clean package docker:build" (execute mavel goal) commanddal, a POM-ban megadott Dockerfile-ból (<dockerFileDir>${project.basedir}/src/main/docker/</dockerFileDir>) buildel jar-t majd másolja a target\docker alá. 
+											Innen a Dockerfile a COPY paranccsal be tudja emelni az image build context-jébe.
+
 # CMD futtatásra bevett parancsok:
 ```
 	docker container run hello-world  --> init image, container létrehozás. smoke test hogy a Docker daemon fut
