@@ -1,0 +1,39 @@
+#always starts with version number
+#use as yaml file, key-value pairs, intend with space never with tab
+version: "3"
+
+#commands section
+services: 
+  
+  #name of the service
+  fleetman-webapp:
+    #image formed from
+    image: virtualpairprogrammers/fleetman-production
+    networks:
+      - fleetman-network
+      - other-network
+    ports:
+      - 80:8080
+    depends_on:
+      - database
+  
+  database:
+    image: mysql:5
+    networks:
+      - fleetman-network
+      - other-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=fleetman
+      
+networks:
+  fleetman-network:
+  
+  other-network:
+  
+  
+
+
+
+
+

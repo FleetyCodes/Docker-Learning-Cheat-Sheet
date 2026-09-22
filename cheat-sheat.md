@@ -3,9 +3,10 @@
 **Dockerfile:** "defines the contents of an image". Forráskód, az image definíciója.  
 **Image:** A container definíciója. - env variables, jar file, jdk, tomcat, etc. a dockerfile buildelésének eredménye.  
 **Docker Container:** Környezet, hasonló mint egy virtual machine. De containeren nincs op rendszer. A container a gépnek az os kernelén fut. A container egy process - 'a service  in its own right'. 
-Az image egy példánya, az imaget futtatod, és lesz belőle egy container. Egy container, egy service, egy microservice.
+		Az image egy példánya, az imaget futtatod, és lesz belőle egy container. Egy container, egy service, egy microservice.
 **docker network:** egy virtuális hálózat amin keresztül a containerek látják egymást és kommunikálhatnak egymással. Érdemes modulokat (FE, BE, DB) külön konténerekben futtatni, és ezáltal tudnak kommunikálni egymással.
 **docker volumes:** perzisztens adattárolás, container leállítás után is megmaradnak a definiált adatok
+**docker compose: ** a simple text file which contains the configuration. production tool is Kubernetes, docker compose is a local dev and test tool.  doksi: https://docs.docker.com/reference/compose-file/  
 
 **docker hub:**
 hub.docker.com
@@ -52,6 +53,7 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
 	docker container rm --> container törlés a listából, ami már futott
 	docker container prune --> mindent töröl ami nem fut--> memória takaritas
 	docker container run -d -p 8080:8080 virtualpairprogrammers/fleetman-webapp --> háttérben futtatás a minusz d commanddal
+		-d --> detached
 	docker container logs <container id> --> logok
 	docker container logs -f <container id> --> logok, folyamat frissüléssel
 	docker container exec -it <container id> bash --> be ssh-zás || docker container exec -it <container name> sh
@@ -89,7 +91,11 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
 		docker container run -v //c/felhasználók/Laci/work/mydatabase:/var/lib/mysql -d -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=fleetman mysql:5
 			--> windows verzio
 			Ha nincs elérés akkor létrehozza. Fizikailag kiírja ide a fileokat.
-		
+			
+	DOCKER COMPOSE
+		docker-compose -v --> docker compose version check
+		docker-compose up --> startup, restartolja a servicet ahol change volt
+		docker-compose down --> teljes leállás
 ```	
 
 ## Dockerfile commands:
