@@ -119,3 +119,4 @@ futtatáskor meg kell mondani mely portok legyenek publikusak
 - java -D"spring.profiles.active"=development -jar .\fleetman-0.0.1-SNAPSHOT.jar --> run jar
 - mysql -ppassword -> belépés "password" jelszóval a db-be
 	show databases; show tables; (db commands, mindig kell a ; a végére!)
+- settings.xml --> C:\Users\Username\.m2
